@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, send_file, render_template
 from flask_cors import CORS
 import os
 import logging
+import datetime
 from manim_executor import execute_manim_script, VIDEO_DIR
 from typing import Dict, Optional
 
@@ -79,17 +80,18 @@ def get_latest_video():
         logger.exception("Error serving video")
         return f"Error serving video: {str(e)}", 500
 
+@app.route("/healthz")
+def health_check():
+    """
+    Health check endpoint for Render and other monitoring services.
+    """
+    return jsonify({"status": "healthy", "timestamp": datetime.datetime.now().isoformat()})
+
 @app.errorhandler(Exception)
 def handle_error(e):
     logger.exception("Unhandled error occurred")
     return jsonify({"error": f"Unhandled server error: {str(e)}"}), 500
 
 if __name__ == "__main__":
-    import os
-    # Check if we're running in a production environment
-    if os.environ.get('FLASK_ENV') == 'production':
-        # In production, don't use debug mode
-        app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
-    else:
-        # In development, use debug mode without reloader
-        app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=False)
+    # Run Flask app without reloader to prevent restarts during animation generation
+    app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=False)
