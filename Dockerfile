@@ -1,10 +1,11 @@
 FROM python:3.9-slim
 
-# Install system dependencies
+# Install system dependencies including build tools for some Python packages
 RUN apt-get update && apt-get install -y \
     ffmpeg \
     gcc \
     g++ \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
@@ -16,6 +17,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY . .
+
+# Create anim_generated directory
+RUN mkdir -p anim_generated
 
 # Expose port
 EXPOSE 5000

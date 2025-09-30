@@ -56,9 +56,29 @@ The application consists of three main components:
 
 ## Deployment
 
-This application can be deployed in several ways:
+### Render Deployment (Recommended)
 
-### Docker Deployment (Recommended)
+1. Fork this repository to your GitHub account
+2. Go to [Render](https://render.com) and create an account (or sign in)
+3. Click "New +" and select "Web Service"
+4. Connect your GitHub account and select your forked repository
+5. Fill in the following details:
+   - **Name**: manim-animation-generator
+   - **Region**: Choose the region closest to you
+   - **Branch**: main
+   - **Root Directory**: Leave empty
+   - **Environment**: Python
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `gunicorn --bind 0.0.0.0:$PORT app:app`
+6. Add environment variables:
+   - `FLASK_ENV` = `production`
+7. Click "Create Web Service"
+8. Wait for the deployment to complete (this may take several minutes)
+9. Your application will be available at the URL provided by Render
+
+**Note**: Render's free tier has some limitations. For heavy usage, consider upgrading to a paid plan.
+
+### Docker Deployment
 
 1. Build the Docker image:
    ```bash
@@ -81,7 +101,6 @@ This application can be deployed in several ways:
 
 The application can be deployed to cloud platforms like:
 - Heroku
-- Render
 - AWS Elastic Beanstalk
 - Google Cloud Run
 - Azure App Service
@@ -113,6 +132,7 @@ manim-animation-generator/
 ├── README.md              # This file
 ├── LICENSE                # License information
 ├── index.html             # Static landing page for GitHub Pages
+├── render.yaml            # Render deployment configuration
 ├── .gitignore             # Git ignore rules
 ├── .dockerignore          # Docker ignore rules
 ├── Procfile               # Heroku deployment configuration
