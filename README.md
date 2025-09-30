@@ -39,7 +39,7 @@ The application consists of three main components:
    pip install -r requirements.txt
    ```
 
-3. Configure your n8n webhook URL in `app.py`
+3. Configure your n8n webhook URL in `templates/index.html`
 
 4. Run the application:
    ```bash
@@ -47,6 +47,46 @@ The application consists of three main components:
    ```
 
 5. Access the application at `http://localhost:5000`
+
+## Deployment
+
+This application can be deployed in several ways:
+
+### Docker Deployment (Recommended)
+
+1. Build the Docker image:
+   ```bash
+   docker build -t manim-animation-generator .
+   ```
+
+2. Run the container:
+   ```bash
+   docker run -p 5000:5000 manim-animation-generator
+   ```
+
+### Docker Compose
+
+1. Use docker-compose:
+   ```bash
+   docker-compose up
+   ```
+
+### Cloud Platforms
+
+The application can be deployed to cloud platforms like:
+- Heroku
+- Render
+- AWS Elastic Beanstalk
+- Google Cloud Run
+- Azure App Service
+
+### GitHub Actions
+
+The repository includes a GitHub Actions workflow for deployment to Render. To use it:
+1. Set up secrets in your GitHub repository:
+   - `RENDER_SERVICE_ID`
+   - `RENDER_API_KEY`
+2. Push to the main branch to trigger deployment
 
 ## Usage
 
@@ -65,8 +105,17 @@ manim-animation-generator/
 ├── manim.cfg              # Manim configuration
 ├── requirements.txt       # Python dependencies
 ├── README.md              # This file
+├── LICENSE                # License information
 ├── .gitignore             # Git ignore rules
+├── .dockerignore          # Docker ignore rules
+├── Procfile               # Heroku deployment configuration
+├── runtime.txt            # Heroku Python runtime version
+├── Dockerfile             # Docker image configuration
+├── docker-compose.yml     # Docker Compose configuration
+├── .github/workflows/     # GitHub Actions workflows
+│   └── deploy.yml         # Deployment workflow
 ├── anim_generated/        # Generated animations directory
+├── static/                # Static files
 └── templates/             # HTML templates
 ```
 

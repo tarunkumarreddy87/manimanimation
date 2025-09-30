@@ -85,5 +85,11 @@ def handle_error(e):
     return jsonify({"error": f"Unhandled server error: {str(e)}"}), 500
 
 if __name__ == "__main__":
-    # Run Flask app without reloader to prevent restarts during animation generation
-    app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=False)
+    import os
+    # Check if we're running in a production environment
+    if os.environ.get('FLASK_ENV') == 'production':
+        # In production, don't use debug mode
+        app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    else:
+        # In development, use debug mode without reloader
+        app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=False)
