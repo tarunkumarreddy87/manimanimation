@@ -284,19 +284,26 @@ class TextExample(Scene):
                 console.log('Webhook response status:', response.status);
                 console.log('Webhook response headers:', [...response.headers.entries()]);
 
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error('Webhook error response:', errorText);
-                    
-                    // Handle specific error cases
-                    if (response.status === 404) {
-                        throw new Error("Webhook not found. Please check if the n8n workflow is properly configured and the webhook is active.");
-                    }
-                    
-                    throw new Error(`Webhook returned HTTP ${response.status}: ${errorText}`);
+                // Check if response is empty
+                const responseText = await response.text();
+                console.log('Webhook response text:', responseText);
+                
+                if (!responseText) {
+                    throw new Error("Webhook returned empty response. Please check if the n8n workflow is properly configured.");
                 }
 
-                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(`Webhook returned HTTP ${response.status}: ${responseText}`);
+                }
+
+                // Try to parse JSON
+                let data;
+                try {
+                    data = JSON.parse(responseText);
+                } catch (jsonError) {
+                    throw new Error(`Webhook returned invalid JSON: ${responseText}`);
+                }
+
                 console.log('Webhook response data:', data);
 
                 // Handle different response formats
