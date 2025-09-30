@@ -2,6 +2,12 @@
 
 A web-based application that generates mathematical animations using Manim through natural language queries. This tool connects to an n8n webhook to convert user requests into Manim code, which is then executed to create animations.
 
+## 🌐 GitHub Pages Landing Page
+
+Visit the static landing page: https://tarunkumarreddy87.github.io/manimanimation
+
+**Note**: This is a static informational page only. The actual application requires server-side processing and cannot run on GitHub Pages.
+
 ## Features
 
 - Natural language to animation conversion
@@ -106,6 +112,7 @@ manim-animation-generator/
 ├── requirements.txt       # Python dependencies
 ├── README.md              # This file
 ├── LICENSE                # License information
+├── index.html             # Static landing page for GitHub Pages
 ├── .gitignore             # Git ignore rules
 ├── .dockerignore          # Docker ignore rules
 ├── Procfile               # Heroku deployment configuration

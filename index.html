@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manim Animation Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        code {
+            background-color: #f8f8f8;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .cta-button:hover {
+            background-color: #2980b9;
+        }
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffeeba;
+            padding: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Manim Animation Generator</h1>
+        <p>Generate mathematical animations using natural language queries</p>
+    </header>
+    
+    <div class="container">
+        <h2>About This Project</h2>
+        <p>The Manim Animation Generator is a web-based application that creates mathematical animations using Manim through natural language queries. This tool connects to an n8n webhook to convert user requests into Manim code, which is then executed to create animations.</p>
+        
+        <div class="note">
+            <h3>Important Notice</h3>
+            <p>This GitHub Pages site is a static landing page only. The actual application requires server-side processing and cannot run on GitHub Pages.</p>
+        </div>
+        
+        <h2>How It Works</h2>
+        <ol>
+            <li>Enter a description of the animation you want to create</li>
+            <li>The application sends your request to an n8n webhook</li>
+            <li>n8n processes the request and generates appropriate Manim code</li>
+            <li>The generated code is executed to create the animation</li>
+            <li>View the generated animation in your browser</li>
+        </ol>
+        
+        <h2>Deployment Options</h2>
+        <p>To use this application, you need to deploy it to a platform that supports Python applications:</p>
+        
+        <h3>Option 1: Render (Recommended)</h3>
+        <ol>
+            <li>Fork this repository</li>
+            <li>Create an account at <a href="https://render.com">render.com</a></li>
+            <li>Create a new Web Service</li>
+            <li>Connect it to your forked repository</li>
+            <li>Set the build command to: <code>pip install -r requirements.txt</code></li>
+            <li>Set the start command to: <code>gunicorn app:app</code></li>
+            <li>Deploy!</li>
+        </ol>
+        
+        <h3>Option 2: Heroku</h3>
+        <ol>
+            <li>Fork this repository</li>
+            <li>Create an account at <a href="https://heroku.com">heroku.com</a></li>
+            <li>Install the Heroku CLI</li>
+            <li>Clone your forked repository</li>
+            <li>Run: <code>heroku create</code></li>
+            <li>Run: <code>git push heroku main</code></li>
+        </ol>
+        
+        <h3>Option 3: Docker</h3>
+        <p>If you have Docker installed:</p>
+        <pre>docker build -t manim-animation-generator .
+docker run -p 5000:5000 manim-animation-generator</pre>
+        <p>Then visit <a href="http://localhost:5000">http://localhost:5000</a></p>
+        
+        <h2>Repository</h2>
+        <p>View the source code on GitHub: <a href="https://github.com/tarunkumarreddy87/manimanimation">https://github.com/tarunkumarreddy87/manimanimation</a></p>
+        
+        <h2>Features</h2>
+        <ul>
+            <li>Natural language to animation conversion</li>
+            <li>Web-based code editor with syntax highlighting</li>
+            <li>Real-time animation preview</li>
+            <li>Example animations library</li>
+            <li>Integration with n8n workflow automation</li>
+        </ul>
+        
+        <h2>Requirements</h2>
+        <ul>
+            <li>Python 3.8+</li>
+            <li>Manim</li>
+            <li>Flask</li>
+            <li>n8n (configured webhook)</li>
+            <li>FFmpeg (for video processing)</li>
+        </ul>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="https://github.com/tarunkumarreddy87/manimanimation" class="cta-button">View on GitHub</a>
+            <a href="https://github.com/tarunkumarreddy87/manimanimation#readme" class="cta-button">Read Documentation</a>
+        </div>
+    </div>
+    
+    <footer style="text-align: center; margin-top: 30px; padding: 20px; color: #666;">
+        <p>Manim Animation Generator &copy; 2025</p>
+    </footer>
+</body>
+</html>

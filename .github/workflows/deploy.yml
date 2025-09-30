@@ -1,4 +1,4 @@
-name: Deploy to Render
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -6,14 +6,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  deploy-static-site:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Deploy to Render
-        uses: johnbeynon/render-deploy-action@v0.0.8
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          service-id: ${{ secrets.RENDER_SERVICE_ID }}
-          api-key: ${{ secrets.RENDER_API_KEY }}
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
