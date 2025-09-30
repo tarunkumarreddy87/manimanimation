@@ -268,7 +268,8 @@ class TextExample(Scene):
             editor.setValue("# Fetching code from webhook...");
 
             try {
-                const webhookUrl = 'https://tharunreddyp12.app.n8n.cloud/webhook-test/19630056-06b6-4a3d-b10a-18a224342ade';
+                // Updated webhook URL
+                const webhookUrl = 'https://tharunreddyp12.app.n8n.cloud/webhook/manim-webhook';
                 console.log('Fetching code from webhook:', webhookUrl);
                 console.log('Request body:', { question: input });
                 
@@ -286,17 +287,44 @@ class TextExample(Scene):
                 if (!response.ok) {
                     const errorText = await response.text();
                     console.error('Webhook error response:', errorText);
+                    
+                    // Handle specific error cases
+                    if (response.status === 404) {
+                        throw new Error("Webhook not found. Please check if the n8n workflow is properly configured and the webhook is active.");
+                    }
+                    
                     throw new Error(`Webhook returned HTTP ${response.status}: ${errorText}`);
                 }
 
                 const data = await response.json();
                 console.log('Webhook response data:', data);
 
-                if (!data.script) {
+                // Handle different response formats
+                let script = '';
+                if (data.script) {
+                    // New format
+                    script = data.script;
+                } else if (Array.isArray(data) && data[0]) {
+                    // Old format - array of sections
+                    const sectionObj = data[0];
+                    if (sectionObj.manim_code) {
+                        // Simulated webhook format
+                        script = sectionObj.manim_code;
+                    } else {
+                        // Original format - concatenate all sections
+                        script = Object.keys(sectionObj)
+                            .map(key => sectionObj[key])
+                            .join("\n\n")
+                            .replace(/```python|```/g, '')
+                            .trim();
+                    }
+                }
+
+                if (!script) {
                     throw new Error("No script returned from webhook");
                 }
 
-                editor.setValue(data.script);
+                editor.setValue(script);
                 status.textContent = "Code loaded ✅";
 
             } catch (error) {
